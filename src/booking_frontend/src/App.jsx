@@ -1,31 +1,37 @@
-import { useState } from 'react';
-import { booking_backend } from 'declarations/booking_backend';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import HomePage from './pages/Homepage';
+import VenueListPage from './pages/VenueListPage';
+import VenueDetailPage from './pages/VenueDetailPage';
+import BookingPage from './pages/BookingPage';
+import UserProfilePage from './pages/UserProfilePage';
+import { AuthProvider } from './context/AuthContext';
+import { BookingProvider } from './context/BookingContext';
 
-function App() {
-  const [greeting, setGreeting] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    booking_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
-
+const App = () => {
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <AuthProvider>
+      <BookingProvider>
+        <Router>
+          <div className="min-h-screen flex flex-col bg-gray-50">
+            <Navbar />
+            <main className="flex-grow container mx-auto px-4 py-8">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/venues" element={<VenueListPage />} />
+                <Route path="/venues/:id" element={<VenueDetailPage />} />
+                <Route path="/booking/:venueId" element={<BookingPage />} />
+                <Route path="/profile" element={<UserProfilePage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </BookingProvider>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
