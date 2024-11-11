@@ -62,7 +62,7 @@ cd Booking
 
 2. Install dependencies:
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 3. Deploy the backend canister:
@@ -73,6 +73,11 @@ dfx deploy
 4. Start the frontend development server:
 ```bash
 npm start
+```
+
+5. Open your browser and navigate to access the application on mainnet. 
+```bash
+https://pnc5y-liaaa-aaaam-adtca-cai.icp0.io/
 ```
 
 ## 🏗 Architecture
